@@ -1,5 +1,6 @@
 import React from 'react';
-import { Database, ShieldCheck, ArrowUp, Sparkles, BookOpen, Share2, Compass } from 'lucide-react';
+import { Database, ShieldCheck, ArrowUp, Sparkles, BookOpen, Share2, Compass, Sun, Moon, Smartphone, Monitor } from 'lucide-react';
+import { useTheme } from '../ThemeContext';
 
 interface FooterProps {
   onOpenProvenance: () => void;
@@ -7,6 +8,8 @@ interface FooterProps {
 }
 
 export const Footer: React.FC<FooterProps> = ({ onOpenProvenance }) => {
+  const { theme, toggleTheme, viewMode, toggleViewMode } = useTheme();
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -32,6 +35,26 @@ export const Footer: React.FC<FooterProps> = ({ onOpenProvenance }) => {
             </p>
             <div className="text-[11px] text-[#DCCEFF]/50 font-mono-stat">
               Synthesizing 50,000 student records with real-world empirical benchmarks (HEPI, Jisc, FICCI).
+            </div>
+
+            {/* Quick Preference Switchers in Footer */}
+            <div className="pt-2 flex flex-wrap items-center gap-2">
+              <button
+                id="footer-theme-toggle-btn"
+                onClick={toggleTheme}
+                className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-[#2D164D] hover:bg-[#6C3BFF] text-white text-xs font-semibold transition-colors cursor-pointer border border-[#6C3BFF]/30"
+              >
+                {theme === 'dark' ? <Sun className="w-3.5 h-3.5 text-[#C7F36B]" /> : <Moon className="w-3.5 h-3.5 text-[#C7F36B]" />}
+                <span>{theme === 'dark' ? 'Switch to Light' : 'Switch to Dark'}</span>
+              </button>
+              <button
+                id="footer-view-toggle-btn"
+                onClick={toggleViewMode}
+                className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-[#2D164D] hover:bg-[#6C3BFF] text-white text-xs font-semibold transition-colors cursor-pointer border border-[#6C3BFF]/30"
+              >
+                {viewMode === 'desktop' ? <Smartphone className="w-3.5 h-3.5 text-[#C7F36B]" /> : <Monitor className="w-3.5 h-3.5 text-[#C7F36B]" />}
+                <span>{viewMode === 'desktop' ? 'Mobile View' : 'Desktop View'}</span>
+              </button>
             </div>
           </div>
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { NAV_SECTIONS, NavSection } from '../data/navigationSections';
+import { useTheme } from '../ThemeContext';
 
 interface SideNavProps {
   activeSection: string;
@@ -7,16 +8,23 @@ interface SideNavProps {
 }
 
 export const SideNav: React.FC<SideNavProps> = ({ activeSection, onNavigate }) => {
+  const { isSimulatedMobile } = useTheme();
+
+  // Hide side ribbon when simulating mobile device
+  if (isSimulatedMobile) {
+    return null;
+  }
+
   return (
     <nav
       id="side-nav-ribbon"
       aria-label="Story Section Navigation Ribbon"
       className="fixed right-2 sm:right-4 lg:right-6 top-1/2 -translate-y-1/2 z-40 hidden sm:flex flex-col items-center"
     >
-      <div className="relative bg-[#F8F6FC]/95 backdrop-blur-md border border-[#DCCEFF] shadow-md py-3.5 px-2 rounded-full flex flex-col items-center space-y-2">
+      <div className="relative bg-[#F8F6FC]/95 dark:bg-[#1A0D31]/95 backdrop-blur-md border border-[#DCCEFF] dark:border-[#3D2266] shadow-md py-3.5 px-2 rounded-full flex flex-col items-center space-y-2">
         {/* Subtle background track connector line */}
         <div 
-          className="absolute w-[2px] top-6 bottom-6 bg-[#DCCEFF] -z-10" 
+          className="absolute w-[2px] top-6 bottom-6 bg-[#DCCEFF] dark:bg-[#3D2266] -z-10" 
           aria-hidden="true" 
         />
 
@@ -36,7 +44,7 @@ export const SideNav: React.FC<SideNavProps> = ({ activeSection, onNavigate }) =
                   className={`block rounded-full transition-all duration-200 ${
                     isActive
                       ? 'w-3.5 h-3.5 bg-[#6C3BFF] ring-3 ring-[#C7F36B] shadow-xs scale-110'
-                      : 'w-2 h-2 bg-[#DCCEFF] group-hover:bg-[#6C3BFF] group-hover:scale-125'
+                      : 'w-2 h-2 bg-[#DCCEFF] dark:bg-[#3D2266] group-hover:bg-[#6C3BFF] group-hover:scale-125'
                   }`}
                 />
               </button>
@@ -44,7 +52,7 @@ export const SideNav: React.FC<SideNavProps> = ({ activeSection, onNavigate }) =
               {/* Tooltip on Hover */}
               <div
                 role="tooltip"
-                className="pointer-events-none absolute right-full mr-3.5 top-1/2 -translate-y-1/2 whitespace-nowrap bg-[#24113F] text-[#F8F6FC] text-xs px-3 py-1.5 rounded-md shadow-lg border border-[#6C3BFF]/30 opacity-0 group-hover:opacity-100 transition-opacity duration-150 flex items-center space-x-2 z-50"
+                className="pointer-events-none absolute right-full mr-3.5 top-1/2 -translate-y-1/2 whitespace-nowrap bg-[#24113F] dark:bg-[#150A28] text-[#F8F6FC] text-xs px-3 py-1.5 rounded-md shadow-lg border border-[#6C3BFF]/30 opacity-0 group-hover:opacity-100 transition-opacity duration-150 flex items-center space-x-2 z-50"
               >
                 <span className="font-mono-stat font-semibold text-[#C7F36B]">
                   {section.number}
@@ -57,7 +65,7 @@ export const SideNav: React.FC<SideNavProps> = ({ activeSection, onNavigate }) =
                 )}
                 {/* Tooltip Caret */}
                 <div 
-                  className="absolute left-full top-1/2 -translate-y-1/2 border-4 border-transparent border-l-[#24113F]" 
+                  className="absolute left-full top-1/2 -translate-y-1/2 border-4 border-transparent border-l-[#24113F] dark:border-l-[#150A28]" 
                   aria-hidden="true" 
                 />
               </div>
@@ -68,3 +76,4 @@ export const SideNav: React.FC<SideNavProps> = ({ activeSection, onNavigate }) =
     </nav>
   );
 };
+

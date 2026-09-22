@@ -1,6 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, TableProperties, ChevronRight, Database, ExternalLink, Wrench } from 'lucide-react';
+import { 
+  Menu, 
+  X, 
+  TableProperties, 
+  ChevronRight, 
+  Database, 
+  ExternalLink, 
+  Wrench, 
+  Sun, 
+  Moon, 
+  Smartphone, 
+  Monitor 
+} from 'lucide-react';
 import { NAV_SECTIONS, NavSection } from '../data/navigationSections';
+import { useTheme } from '../ThemeContext';
 
 interface NavbarProps {
   activeSection: string;
@@ -16,6 +29,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenProvenance 
 }) => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { theme, toggleTheme, setTheme, viewMode, toggleViewMode, setViewMode } = useTheme();
 
   // Close drawer on escape key
   useEffect(() => {
@@ -41,7 +55,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <>
-      <header className="sticky top-0 z-40 bg-[#F8F6FC]/95 backdrop-blur-md border-b border-[#DCCEFF]">
+      <header className="sticky top-0 z-40 bg-[#F8F6FC]/95 dark:bg-[#0F071D]/95 backdrop-blur-md border-b border-[#DCCEFF] dark:border-[#3D2266] transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo & Primary Identity (Horizontally aligned, unstacked) */}
@@ -54,36 +68,74 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <div className="w-8 h-8 rounded-lg bg-[#24113F] text-[#C7F36B] flex items-center justify-center font-editorial font-bold text-lg group-hover:bg-[#6C3BFF] group-hover:text-white transition-colors shadow-xs">
                   Ψ
                 </div>
-                <span className="font-editorial text-lg sm:text-xl font-bold tracking-tight text-[#24113F] group-hover:text-[#6C3BFF] transition-colors whitespace-nowrap">
+                <span className="font-editorial text-lg sm:text-xl font-bold tracking-tight text-[#24113F] dark:text-[#F8F6FC] group-hover:text-[#6C3BFF] transition-colors whitespace-nowrap">
                   The Student-AI Spectrum
                 </span>
               </button>
             </div>
 
-            {/* Actions: Impact Matrix Shortcut, Tools Shortcut & Universal Hamburger Icon */}
-            <div className="flex items-center space-x-2 sm:space-x-3">
+            {/* Actions: Theme Toggle, Mobile/Desktop View Switcher & Navigation */}
+            <div className="flex items-center space-x-1.5 sm:space-x-2">
+              {/* Light / Dark Mode Toggle */}
+              <button
+                id="theme-toggle-btn"
+                onClick={toggleTheme}
+                aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+                className="inline-flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg border border-[#DCCEFF] dark:border-[#3D2266] bg-white dark:bg-[#1A0D31] text-[#24113F] dark:text-[#E2DAF0] hover:bg-[#DCCEFF]/30 hover:border-[#6C3BFF] transition-all shadow-xs cursor-pointer text-xs font-medium"
+                title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+              >
+                {theme === 'dark' ? (
+                  <>
+                    <Sun className="w-3.5 h-3.5 text-[#C7F36B]" />
+                    <span className="hidden sm:inline font-semibold">Light</span>
+                  </>
+                ) : (
+                  <>
+                    <Moon className="w-3.5 h-3.5 text-[#6C3BFF]" />
+                    <span className="hidden sm:inline font-semibold">Dark</span>
+                  </>
+                )}
+              </button>
+
+              {/* Mobile / Desktop Simulation Toggle */}
+              <button
+                id="viewmode-toggle-btn"
+                onClick={toggleViewMode}
+                aria-label={`Switch to ${viewMode === 'desktop' ? 'mobile' : 'desktop'} view mode`}
+                className="hidden sm:inline-flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg border border-[#DCCEFF] dark:border-[#3D2266] bg-white dark:bg-[#1A0D31] text-[#24113F] dark:text-[#E2DAF0] hover:bg-[#DCCEFF]/30 hover:border-[#6C3BFF] transition-all shadow-xs cursor-pointer text-xs font-medium"
+                title={viewMode === 'desktop' ? 'Switch to Mobile Preview Mode' : 'Switch to Desktop Mode'}
+              >
+                {viewMode === 'desktop' ? (
+                  <>
+                    <Smartphone className="w-3.5 h-3.5 text-[#6C3BFF]" />
+                    <span className="font-semibold">Mobile</span>
+                  </>
+                ) : (
+                  <>
+                    <Monitor className="w-3.5 h-3.5 text-[#C7F36B]" />
+                    <span className="font-semibold">Desktop</span>
+                  </>
+                )}
+              </button>
+
+              {/* Impact Matrix Shortcut */}
               <button
                 id="open-impact-matrix-btn"
                 onClick={() => handleNavClick('impact-matrix')}
-                className="hidden sm:inline-flex items-center space-x-1.5 px-3 py-1.5 text-xs font-medium rounded-lg border border-[#DCCEFF] bg-white text-[#29252F] hover:bg-[#DCCEFF]/30 hover:border-[#6C3BFF] transition-all shadow-xs cursor-pointer"
+                className="hidden md:inline-flex items-center space-x-1.5 px-3 py-1.5 text-xs font-medium rounded-lg border border-[#DCCEFF] dark:border-[#3D2266] bg-white dark:bg-[#1A0D31] text-[#29252F] dark:text-[#E2DAF0] hover:bg-[#DCCEFF]/30 hover:border-[#6C3BFF] transition-all shadow-xs cursor-pointer"
               >
                 <TableProperties className="w-3.5 h-3.5 text-[#6C3BFF]" />
-                <span className="font-semibold text-[#24113F]">Impact Matrix</span>
-                <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#C7F36B] text-[#24113F] ml-0.5">
-                  AI &amp; Social
-                </span>
+                <span className="font-semibold text-[#24113F] dark:text-[#F8F6FC]">Impact Matrix</span>
               </button>
 
+              {/* AI Tools Shortcut */}
               <button
                 id="open-tools-btn"
                 onClick={() => handleNavClick('tools')}
-                className="hidden md:inline-flex items-center space-x-1.5 px-3 py-1.5 text-xs font-medium rounded-lg border border-[#DCCEFF] bg-white text-[#29252F] hover:bg-[#DCCEFF]/30 hover:border-[#6C3BFF] transition-all shadow-xs cursor-pointer"
+                className="hidden lg:inline-flex items-center space-x-1.5 px-3 py-1.5 text-xs font-medium rounded-lg border border-[#DCCEFF] dark:border-[#3D2266] bg-white dark:bg-[#1A0D31] text-[#29252F] dark:text-[#E2DAF0] hover:bg-[#DCCEFF]/30 hover:border-[#6C3BFF] transition-all shadow-xs cursor-pointer"
               >
                 <Wrench className="w-3.5 h-3.5 text-[#6C3BFF]" />
-                <span className="font-semibold text-[#24113F]">AI Toolkit</span>
-                <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#24113F] text-[#C7F36B] ml-0.5">
-                  Design &amp; Code
-                </span>
+                <span className="font-semibold text-[#24113F] dark:text-[#F8F6FC]">AI Toolkit</span>
               </button>
 
               {/* Universal Hamburger Navigation Toggle (Visible on Desktop & Mobile) */}
@@ -91,16 +143,16 @@ export const Navbar: React.FC<NavbarProps> = ({
                 id="nav-menu-toggle-btn"
                 type="button"
                 onClick={() => setMenuOpen(!menuOpen)}
-                className="inline-flex items-center space-x-2 px-3 py-1.5 rounded-lg border border-[#DCCEFF] bg-white text-[#24113F] hover:bg-[#DCCEFF]/40 hover:border-[#6C3BFF] transition-all shadow-xs focus:outline-hidden focus-visible:ring-2 focus-visible:ring-[#6C3BFF] cursor-pointer font-medium"
+                className="inline-flex items-center space-x-2 px-3 py-1.5 rounded-lg border border-[#DCCEFF] dark:border-[#3D2266] bg-white dark:bg-[#1A0D31] text-[#24113F] dark:text-[#F8F6FC] hover:bg-[#DCCEFF]/40 hover:border-[#6C3BFF] transition-all shadow-xs focus:outline-hidden focus-visible:ring-2 focus-visible:ring-[#6C3BFF] cursor-pointer font-medium"
                 aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
                 aria-expanded={menuOpen}
               >
                 {menuOpen ? (
-                  <X className="w-4 h-4 text-[#24113F]" />
+                  <X className="w-4 h-4 text-[#24113F] dark:text-[#F8F6FC]" />
                 ) : (
-                  <Menu className="w-4 h-4 text-[#24113F]" />
+                  <Menu className="w-4 h-4 text-[#24113F] dark:text-[#F8F6FC]" />
                 )}
-                <span className="text-xs font-semibold text-[#24113F]">
+                <span className="text-xs font-semibold text-[#24113F] dark:text-[#F8F6FC]">
                   {menuOpen ? 'Close' : 'Menu'}
                 </span>
               </button>
@@ -201,8 +253,72 @@ export const Navbar: React.FC<NavbarProps> = ({
               })}
             </nav>
 
+            {/* Drawer Mode & Theme Controls */}
+            <div className="p-4 border-t border-[#DCCEFF] dark:border-[#3D2266] bg-white dark:bg-[#1A0D31] space-y-2.5">
+              <div className="text-xs font-bold uppercase tracking-wider text-[#24113F] dark:text-[#F8F6FC] flex items-center justify-between">
+                <span>Display &amp; Viewport</span>
+                <span className="text-[10px] text-[#29252F]/70 dark:text-[#B5A8CE] font-mono-stat font-normal">Adaptive Controls</span>
+              </div>
+              
+              {/* Theme Segmented Switch */}
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  id="drawer-theme-light-btn"
+                  onClick={() => setTheme('light')}
+                  className={`flex items-center justify-center space-x-1.5 py-2 px-3 rounded-lg text-xs font-semibold border transition-all cursor-pointer ${
+                    theme === 'light'
+                      ? 'bg-[#24113F] text-white border-[#24113F] shadow-2xs'
+                      : 'bg-[#F8F6FC] dark:bg-[#251142] text-[#29252F] dark:text-[#E2DAF0] border-[#DCCEFF] dark:border-[#3D2266] hover:border-[#6C3BFF]'
+                  }`}
+                >
+                  <Sun className={`w-3.5 h-3.5 ${theme === 'light' ? 'text-[#C7F36B]' : 'text-[#6C3BFF]'}`} />
+                  <span>Light Mode</span>
+                </button>
+                <button
+                  id="drawer-theme-dark-btn"
+                  onClick={() => setTheme('dark')}
+                  className={`flex items-center justify-center space-x-1.5 py-2 px-3 rounded-lg text-xs font-semibold border transition-all cursor-pointer ${
+                    theme === 'dark'
+                      ? 'bg-[#6C3BFF] text-white border-[#6C3BFF] shadow-2xs'
+                      : 'bg-[#F8F6FC] dark:bg-[#251142] text-[#29252F] dark:text-[#E2DAF0] border-[#DCCEFF] dark:border-[#3D2266] hover:border-[#6C3BFF]'
+                  }`}
+                >
+                  <Moon className={`w-3.5 h-3.5 ${theme === 'dark' ? 'text-[#C7F36B]' : 'text-[#29252F]'}`} />
+                  <span>Dark Mode</span>
+                </button>
+              </div>
+
+              {/* Viewport Segmented Switch */}
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  id="drawer-view-desktop-btn"
+                  onClick={() => setViewMode('desktop')}
+                  className={`flex items-center justify-center space-x-1.5 py-2 px-3 rounded-lg text-xs font-semibold border transition-all cursor-pointer ${
+                    viewMode === 'desktop'
+                      ? 'bg-[#24113F] text-white border-[#24113F] shadow-2xs'
+                      : 'bg-[#F8F6FC] dark:bg-[#251142] text-[#29252F] dark:text-[#E2DAF0] border-[#DCCEFF] dark:border-[#3D2266] hover:border-[#6C3BFF]'
+                  }`}
+                >
+                  <Monitor className={`w-3.5 h-3.5 ${viewMode === 'desktop' ? 'text-[#C7F36B]' : 'text-[#29252F]'}`} />
+                  <span>Desktop View</span>
+                </button>
+                <button
+                  id="drawer-view-mobile-btn"
+                  onClick={() => setViewMode('mobile')}
+                  className={`flex items-center justify-center space-x-1.5 py-2 px-3 rounded-lg text-xs font-semibold border transition-all cursor-pointer ${
+                    viewMode === 'mobile'
+                      ? 'bg-[#6C3BFF] text-white border-[#6C3BFF] shadow-2xs'
+                      : 'bg-[#F8F6FC] dark:bg-[#251142] text-[#29252F] dark:text-[#E2DAF0] border-[#DCCEFF] dark:border-[#3D2266] hover:border-[#6C3BFF]'
+                  }`}
+                >
+                  <Smartphone className={`w-3.5 h-3.5 ${viewMode === 'mobile' ? 'text-[#C7F36B]' : 'text-[#29252F]'}`} />
+                  <span>Mobile View</span>
+                </button>
+              </div>
+            </div>
+
             {/* Drawer Footer Actions */}
-            <div className="p-4 border-t border-[#DCCEFF] bg-[#DCCEFF]/20 space-y-2">
+            <div className="p-4 border-t border-[#DCCEFF] dark:border-[#3D2266] bg-[#DCCEFF]/20 dark:bg-[#150A28] space-y-2">
               <button
                 id="drawer-impact-matrix-btn"
                 onClick={() => {
