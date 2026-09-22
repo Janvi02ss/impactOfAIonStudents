@@ -1,0 +1,8 @@
+{
+  "name": "AI & the Student: Learning Accelerator or Learning Substitute?",
+  "description": "An interactive data story and research hub exploring how generative AI impacts higher education students—examining the tension between AI as an accelerator and a substitute across 50,000 students, real-world surveys, and qualitative themes.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
