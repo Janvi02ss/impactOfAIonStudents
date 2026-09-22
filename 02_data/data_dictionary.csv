@@ -1,0 +1,23 @@
+variable,description,type,notes
+student_id,Unique row/student identifier in supplied dataset,Integer,Identifier; do not interpret as real person identity
+major_category,Broad field of study,Categorical,"STEM, Business, Humanities, Medical, Arts"
+year_of_study,Academic stage,Categorical,"Freshman, Sophomore, Junior, Senior, Graduate"
+pre_semester_gpa,GPA before semester,Numeric,1–4 scale in supplied file
+weekly_genai_hours,Self/recorded weekly generative-AI use,Numeric,Hours/week; 0–40 in supplied file
+primary_use_case,Main GenAI academic use,Categorical,Debugging/Troubleshooting; Copywriting/Drafting; Ideation; Summarizing_Reading; Direct_Answer_Generation
+prompt_engineering_skill,Prompting proficiency category,Categorical,"Beginner, Intermediate, Advanced"
+tool_diversity,Number of AI tools used,Integer,1–5 in supplied file
+paid_subscription,Whether a paid AI subscription is present,Binary,Yes/No after cleaning
+traditional_study_hours,Weekly traditional study time,Numeric,Hours/week
+perceived_ai_dependency,Perceived dependence on AI,Ordinal,1–10
+institutional_policy,Institutional AI policy category,Categorical,Strict_Ban; Allowed_With_Citation; Actively_Encouraged
+anxiety_level_during_exams,Exam-period anxiety score,Ordinal,1–10
+post_semester_gpa,GPA after semester,Numeric,1–4 scale in supplied file
+skill_retention_score,Skill retention measure,Numeric,0–100 in supplied file
+burnout_risk_level,Burnout risk category,Categorical,"Low, Medium, High"
+gpa_change,Derived variable: post GPA minus pre GPA,Numeric,"Can be negative, zero, or positive"
+genai_hours_band,Derived GenAI use intensity band,Ordinal,"0–2, >2–5, >5–10, >10–20, >20 hours/week"
+dependency_band,Derived AI-dependency band,Ordinal,Five bands from 1–2 to 9–10
+anxiety_band,Derived exam-anxiety band,Ordinal,Five bands from 1–2 to 9–10
+total_study_hours,Derived GenAI + traditional study hours,Numeric,Hours/week; descriptive only
+ai_to_traditional_study_ratio,Derived GenAI hours divided by traditional study hours,Numeric,Ratio; undefined when traditional study hours = 0

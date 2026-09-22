@@ -1,0 +1,9 @@
+,weekly_genai_hours,traditional_study_hours,perceived_ai_dependency,anxiety_level_during_exams,skill_retention_score,pre_semester_gpa,post_semester_gpa,gpa_change
+weekly_genai_hours,1.0,-0.157,0.665,0.269,-0.118,-0.001,-0.019,-0.046
+traditional_study_hours,-0.157,1.0,-0.103,-0.041,0.148,-0.005,0.138,0.376
+perceived_ai_dependency,0.665,-0.103,1.0,0.308,-0.084,0.001,-0.014,-0.039
+anxiety_level_during_exams,0.269,-0.041,0.308,1.0,-0.042,-0.001,-0.016,-0.04
+skill_retention_score,-0.118,0.148,-0.084,-0.042,1.0,0.099,0.17,0.196
+pre_semester_gpa,-0.001,-0.005,0.001,-0.001,0.099,1.0,0.927,-0.104
+post_semester_gpa,-0.019,0.138,-0.014,-0.016,0.17,0.927,1.0,0.277
+gpa_change,-0.046,0.376,-0.039,-0.04,0.196,-0.104,0.277,1.0

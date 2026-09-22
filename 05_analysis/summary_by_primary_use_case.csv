@@ -1,0 +1,6 @@
+primary_use_case,n,mean_hours,mean_post_gpa,mean_skill_retention,mean_dependency,mean_exam_anxiety
+Copywriting/Drafting,12011,7.628,3.335,75.231,3.389,4.199
+Debugging/Troubleshooting,12295,9.401,3.396,78.069,3.645,4.334
+Direct_Answer_Generation,6340,8.456,3.294,73.719,3.491,4.286
+Ideation,10721,8.398,3.344,75.52,3.499,4.267
+Summarizing_Reading,8633,8.17,3.35,75.225,3.488,4.273
