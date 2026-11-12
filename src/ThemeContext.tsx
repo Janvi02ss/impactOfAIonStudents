@@ -11,6 +11,9 @@ export interface ThemeContextType {
   toggleViewMode: () => void;
   setViewMode: (mode: ViewMode) => void;
   isSimulatedMobile: boolean;
+  robotCursor: boolean;
+  toggleRobotCursor: () => void;
+  setRobotCursor: (enabled: boolean) => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -57,6 +60,16 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
   }, [theme]);
 
+  // Robot Cursor Companion state
+  const [robotCursor, setRobotCursorState] = useState<boolean>(() => {
+    try {
+      const saved = localStorage.getItem('ai_student_robot_cursor');
+      return saved !== null ? saved === 'true' : true; // Enabled by default
+    } catch {
+      return true;
+    }
+  });
+
   // Save viewMode
   useEffect(() => {
     try {
@@ -65,6 +78,20 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       // Ignore
     }
   }, [viewMode]);
+
+  // Save robotCursor & apply cursor class to body when on desktop
+  useEffect(() => {
+    try {
+      localStorage.setItem('ai_student_robot_cursor', String(robotCursor));
+      if (robotCursor) {
+        document.body.classList.add('custom-robot-cursor');
+      } else {
+        document.body.classList.remove('custom-robot-cursor');
+      }
+    } catch {
+      // Ignore
+    }
+  }, [robotCursor]);
 
   const toggleTheme = () => {
     setThemeState((prev) => (prev === 'light' ? 'dark' : 'light'));
@@ -82,6 +109,14 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setViewModeState(mode);
   };
 
+  const toggleRobotCursor = () => {
+    setRobotCursorState((prev) => !prev);
+  };
+
+  const setRobotCursor = (enabled: boolean) => {
+    setRobotCursorState(enabled);
+  };
+
   return (
     <ThemeContext.Provider
       value={{
@@ -92,6 +127,9 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         toggleViewMode,
         setViewMode,
         isSimulatedMobile: viewMode === 'mobile',
+        robotCursor,
+        toggleRobotCursor,
+        setRobotCursor,
       }}
     >
       {children}

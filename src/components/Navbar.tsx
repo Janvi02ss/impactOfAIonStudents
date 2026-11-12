@@ -10,7 +10,8 @@ import {
   Sun, 
   Moon, 
   Smartphone, 
-  Monitor 
+  Monitor,
+  Bot 
 } from 'lucide-react';
 import { NAV_SECTIONS, NavSection } from '../data/navigationSections';
 import { useTheme } from '../ThemeContext';
@@ -29,7 +30,16 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenProvenance 
 }) => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { theme, toggleTheme, setTheme, viewMode, toggleViewMode, setViewMode } = useTheme();
+  const { 
+    theme, 
+    toggleTheme, 
+    setTheme, 
+    viewMode, 
+    toggleViewMode, 
+    setViewMode, 
+    robotCursor, 
+    toggleRobotCursor 
+  } = useTheme();
 
   // Close drawer on escape key
   useEffect(() => {
@@ -116,6 +126,23 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <span className="font-semibold">Desktop</span>
                   </>
                 )}
+              </button>
+
+              {/* Robot Cursor Companion Toggle */}
+              <button
+                id="robot-cursor-toggle-btn"
+                onClick={toggleRobotCursor}
+                aria-label={`Toggle Robot Cursor (${robotCursor ? 'Active' : 'Disabled'})`}
+                className={`inline-flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg border transition-all shadow-xs cursor-pointer text-xs font-medium ${
+                  robotCursor
+                    ? 'border-[#6C3BFF] bg-[#24113F] text-[#C7F36B] dark:bg-[#6C3BFF] dark:text-white shadow-xs'
+                    : 'border-[#DCCEFF] dark:border-[#3D2266] bg-white dark:bg-[#1A0D31] text-[#24113F]/70 dark:text-[#E2DAF0]/70 hover:border-[#6C3BFF]'
+                }`}
+                title={robotCursor ? 'Robot Cursor Active (Click to switch to standard arrow)' : 'Robot Cursor Off (Click to activate Robot Arrow)'}
+              >
+                <Bot className={`w-3.5 h-3.5 ${robotCursor ? 'text-[#C7F36B]' : 'text-[#6C3BFF]'}`} />
+                <span className="hidden sm:inline font-semibold">Robot</span>
+                <span className={`w-1.5 h-1.5 rounded-full ${robotCursor ? 'bg-[#C7F36B] animate-pulse' : 'bg-gray-400'}`} />
               </button>
 
               {/* Impact Matrix Shortcut */}
@@ -315,6 +342,25 @@ export const Navbar: React.FC<NavbarProps> = ({
                   <span>Mobile View</span>
                 </button>
               </div>
+
+              {/* Robot Companion Cursor Switch */}
+              <button
+                id="drawer-toggle-robot-btn"
+                onClick={toggleRobotCursor}
+                className={`w-full flex items-center justify-between py-2 px-3 rounded-lg text-xs font-semibold border transition-all cursor-pointer ${
+                  robotCursor
+                    ? 'bg-[#24113F] dark:bg-[#6C3BFF] text-white border-[#24113F] dark:border-[#6C3BFF] shadow-2xs'
+                    : 'bg-[#F8F6FC] dark:bg-[#251142] text-[#29252F] dark:text-[#E2DAF0] border-[#DCCEFF] dark:border-[#3D2266] hover:border-[#6C3BFF]'
+                }`}
+              >
+                <div className="flex items-center space-x-2">
+                  <Bot className={`w-3.5 h-3.5 ${robotCursor ? 'text-[#C7F36B] animate-pulse' : 'text-[#6C3BFF]'}`} />
+                  <span>Robot Cursor &amp; Scroller</span>
+                </div>
+                <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${robotCursor ? 'bg-[#C7F36B] text-[#24113F]' : 'bg-[#DCCEFF] text-[#24113F]'}`}>
+                  {robotCursor ? 'ACTIVE' : 'STANDARD'}
+                </span>
+              </button>
             </div>
 
             {/* Drawer Footer Actions */}

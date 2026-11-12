@@ -16,9 +16,10 @@ import { ConcludingSection } from './components/ConcludingSection';
 import { AIToolsSection } from './components/AIToolsSection';
 import { Footer } from './components/Footer';
 import { ProvenanceModal } from './components/ProvenanceModal';
+import { RobotCompanion } from './components/RobotCompanion';
 import { NAV_SECTIONS } from './data/navigationSections';
 import { useTheme } from './ThemeContext';
-import { Smartphone, Monitor, Sun, Moon } from 'lucide-react';
+import { Smartphone, Monitor, Sun, Moon, Bot } from 'lucide-react';
 
 const data = researchDataRaw as unknown as ResearchDataset;
 
@@ -190,6 +191,9 @@ export const App: React.FC = () => {
           isOpen={provenanceModalOpen}
           onClose={() => setProvenanceModalOpen(false)}
         />
+
+        {/* Interactive Robot Cursor & Scroller Companion */}
+        <RobotCompanion />
       </div>
     </div>
   );

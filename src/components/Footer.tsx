@@ -1,5 +1,5 @@
 import React from 'react';
-import { Database, ShieldCheck, ArrowUp, Sparkles, BookOpen, Share2, Compass, Sun, Moon, Smartphone, Monitor } from 'lucide-react';
+import { Database, ShieldCheck, ArrowUp, Sparkles, BookOpen, Share2, Compass, Sun, Moon, Smartphone, Monitor, Bot } from 'lucide-react';
 import { useTheme } from '../ThemeContext';
 
 interface FooterProps {
@@ -8,7 +8,7 @@ interface FooterProps {
 }
 
 export const Footer: React.FC<FooterProps> = ({ onOpenProvenance }) => {
-  const { theme, toggleTheme, viewMode, toggleViewMode } = useTheme();
+  const { theme, toggleTheme, viewMode, toggleViewMode, robotCursor, toggleRobotCursor } = useTheme();
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -54,6 +54,14 @@ export const Footer: React.FC<FooterProps> = ({ onOpenProvenance }) => {
               >
                 {viewMode === 'desktop' ? <Smartphone className="w-3.5 h-3.5 text-[#C7F36B]" /> : <Monitor className="w-3.5 h-3.5 text-[#C7F36B]" />}
                 <span>{viewMode === 'desktop' ? 'Mobile View' : 'Desktop View'}</span>
+              </button>
+              <button
+                id="footer-robot-toggle-btn"
+                onClick={toggleRobotCursor}
+                className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-[#2D164D] hover:bg-[#6C3BFF] text-white text-xs font-semibold transition-colors cursor-pointer border border-[#6C3BFF]/30"
+              >
+                <Bot className={`w-3.5 h-3.5 ${robotCursor ? 'text-[#C7F36B]' : 'text-gray-300'}`} />
+                <span>{robotCursor ? 'Robot Arrow: ON' : 'Robot Arrow: OFF'}</span>
               </button>
             </div>
           </div>
